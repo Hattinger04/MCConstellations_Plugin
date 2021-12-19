@@ -1,0 +1,5 @@
+name: MinecraftConstellations
+main: io.github.Hattinger04.minecraftconstellations.MinecraftConstellations
+version: 0.1
+commands: 
+   help: 
