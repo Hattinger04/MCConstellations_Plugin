@@ -20,12 +20,12 @@ public final class MinecraftConstellations extends JavaPlugin{
 		getLogger().info("Server is now starting...");
 		this.registerCommands();
 		getLogger().info("Commands are successfully implemented!");
-		MySQLFIle.setDefaultMySQL();
-        MySQLFIle.loadMySQLSettings();
-        if (MySQLFIle.sql.getBoolean("MySQL")) {
-            MySQLFIle.ConnectMySQL();
-        }
-		getLogger().info("Connection to database has been successful!");
+//		MySQLFIle.setDefaultMySQL();
+//        MySQLFIle.loadMySQLSettings();
+//        if (MySQLFIle.sql.getBoolean("MySQL")) {
+//            MySQLFIle.ConnectMySQL();
+//        }
+//		getLogger().info("Connection to database has been successful!");
 
     }
     @Override
@@ -34,5 +34,6 @@ public final class MinecraftConstellations extends JavaPlugin{
     }
 	private void registerCommands() {
     	this.getCommand("help").setExecutor(new Commands(this));
+    	this.getCommand("website").setExecutor(new Commands(this));
     }
 }
