@@ -7,6 +7,7 @@ package io.github.Hattinger04.minecraftconstellations.mysql;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import io.github.Hattinger04.minecraftconstellations.MinecraftConstellations;
+import io.github.Hattinger04.minecraftconstellations.constellations.EConstellations;
 
 import org.bukkit.inventory.Inventory;
 import java.util.HashMap;
@@ -128,6 +129,11 @@ public class MySQLStats
                 addDeaths(name, deaths);
             }
         }
+    }
+    
+    public static EConstellations getConstellation() {
+    	// TODO: DB Zugriff + Erstellung der Einträge!
+    	return EConstellations.Blue; 
     }
     
    
