@@ -49,13 +49,29 @@ public class Constellations {
 	 * @param player
 	 * @return
 	 */
-	public static boolean addPlayerToConstellation(EConstellations color, Player player) {
+	public static EConstellations addPlayerToConstellation(EConstellations color, Player player) {
 		ArrayList<Player> playerList = constellations.get(color); 
 		playerList.add(player); 
 		constellations.remove(color); 
 		constellations.put(color, playerList); 
 		setPlayerColor(player); 
-		return true; 
+		
+		// Bissale a pfusch denk i aber so funkts
+		for(EConstellations cons : EConstellations.values()) {
+			if(cons != color) {
+				if(constellations.get(cons).contains(player)) {
+					constellations.get(cons).remove(player); 
+				}
+			}
+		}
+
+		for (Entry<EConstellations, ArrayList<Player>> entry : constellations.entrySet()) {
+			System.out.println("Color: " + entry.getKey().toString());
+			for(Player p : entry.getValue()) {
+	    		System.out.println("\tPlayer: " + p.getDisplayName());
+	    	}		
+		}
+		return color; 
 	}
 	
 	/**
@@ -67,11 +83,14 @@ public class Constellations {
 	 */
 	public static boolean removePlayerFromConstellation(EConstellations color, Player player) {
 		ArrayList<Player> playerList = constellations.get(color); 
-		playerList.remove(player); 
-		constellations.remove(color); 
-		constellations.put(color, playerList); 
-		setPlayerColor(player); 
-		return true; 
+		if(playerList.contains(player)) {
+			playerList.remove(player); 
+			constellations.remove(color); 
+			constellations.put(color, playerList); 
+			setPlayerColor(player); 
+			return true; 
+		}
+		return false; 
 	}
 	
 	public static EConstellations getColorFromPlayer(Player player) {
@@ -82,7 +101,7 @@ public class Constellations {
 		        }
 	    	}
 	    }
-	    return null; 
+	    return EConstellations.Nothing; 
 	}
 	
 	public static ArrayList<Player> getPlayersFromColor(EConstellations color) {
@@ -97,7 +116,7 @@ public class Constellations {
 	 */
 	public static boolean setPlayerColor(Player player) {
 		EConstellations color = getColorFromPlayer(player); 
-		ChatColor chatColor = ChatColor.BLACK; 
+		ChatColor chatColor; 
 		switch(color) {
 		case Red: 
 			chatColor = ChatColor.RED; 
@@ -110,6 +129,9 @@ public class Constellations {
 			break; 
 		case Green: 
 			chatColor = ChatColor.GREEN; 
+			break;
+		default:
+			chatColor = ChatColor.BLACK; 
 			break; 
 		}
 		player.setDisplayName(chatColor + player.getName() + ChatColor.RESET);

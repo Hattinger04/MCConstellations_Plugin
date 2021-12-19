@@ -7,6 +7,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import io.github.Hattinger04.minecraftconstellations.commands.Commands;
+import io.github.Hattinger04.minecraftconstellations.constellations.Constellations;
 import io.github.Hattinger04.minecraftconstellations.events.PlayerJoin;
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQL;
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQLFIle;
@@ -33,6 +34,9 @@ public final class MinecraftConstellations extends JavaPlugin{
 		getLogger().info("Commands are successfully implemented!");
 		this.registerEvents();
 		getLogger().info("Events are successfully implemented!");
+		Constellations.initializeConstellations();
+		getLogger().info("Constelaltions are successfully implemented!");
+
 		
 
     }
@@ -43,6 +47,8 @@ public final class MinecraftConstellations extends JavaPlugin{
 	private void registerCommands() {
     	this.getCommand("help").setExecutor(new Commands(this));
     	this.getCommand("website").setExecutor(new Commands(this));
+    	this.getCommand("constellation").setExecutor(new Commands(this));
+
     }
 	private void registerEvents() {
 		 final PluginManager pm = Bukkit.getPluginManager();
