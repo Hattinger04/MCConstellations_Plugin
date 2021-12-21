@@ -1,3 +1,7 @@
+/**
+ * @author Simon Greiderer
+ */
+
 package io.github.Hattinger04.minecraftconstellations.constellations;
 
 import java.util.ArrayList;

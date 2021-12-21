@@ -1,3 +1,6 @@
+/**
+ * @author Simon Greiderer
+ */
 package io.github.Hattinger04.minecraftconstellations.events;
 
 import org.bukkit.entity.EntityType;
