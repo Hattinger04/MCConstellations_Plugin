@@ -1,5 +1,8 @@
 package io.github.Hattinger04.minecraftconstellations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
@@ -11,21 +14,22 @@ import io.github.Hattinger04.minecraftconstellations.constellations.Constellatio
 import io.github.Hattinger04.minecraftconstellations.events.PlayerDeath;
 import io.github.Hattinger04.minecraftconstellations.events.PlayerHit;
 import io.github.Hattinger04.minecraftconstellations.events.PlayerJoin;
-import io.github.Hattinger04.minecraftconstellations.events.PlayerKill;
 import io.github.Hattinger04.minecraftconstellations.events.Soup;
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQL;
+import io.github.Hattinger04.minecraftconstellations.time.FightingSchedule;
 
-public final class MinecraftConstellations extends JavaPlugin{
+public final class MinecraftConstellations extends JavaPlugin {
 
-    public static MySQL mysql;
-    public static MinecraftConstellations plugin;
+	public static MySQL mysql;
+	public static MinecraftConstellations plugin;
+	private static List<FightingSchedule> tasks = new ArrayList<>();
 
-    public static MinecraftConstellations getplugin() {
-        return MinecraftConstellations.plugin;
-    }
-	
-    @Override
-    public void onEnable() {
+	public static MinecraftConstellations getplugin() {
+		return MinecraftConstellations.plugin;
+	}
+
+	@Override
+	public void onEnable() {
 		getLogger().info("Server is now starting...");
 //		MySQLFIle.setDefaultMySQL();
 //        MySQLFIle.loadMySQLSettings();
@@ -40,26 +44,34 @@ public final class MinecraftConstellations extends JavaPlugin{
 		Constellations.initializeConstellations();
 		getLogger().info("Constelaltions are successfully implemented!");
 
-		
+	}
 
-    }
-    @Override
-    public void onDisable() {
+	@Override
+	public void onDisable() {
 		getLogger().info("Server is now closing...");
-    }
+	}
+
 	private void registerCommands() {
-    	this.getCommand("help").setExecutor(new Commands(this));
-    	this.getCommand("website").setExecutor(new Commands(this));
-    	this.getCommand("constellation").setExecutor(new Commands(this));
+		this.getCommand("help").setExecutor(new Commands(this));
+		this.getCommand("website").setExecutor(new Commands(this));
+		this.getCommand("constellation").setExecutor(new Commands(this));
 
-    }
+	}
+
 	private void registerEvents() {
-		 final PluginManager pm = Bukkit.getPluginManager();
-		 pm.registerEvents((Listener)new PlayerJoin(), (Plugin)this);
-		 pm.registerEvents((Listener)new Soup(), (Plugin)this);
-		 pm.registerEvents((Listener)new PlayerDeath(), (Plugin)this);
-		 pm.registerEvents((Listener)new PlayerKill(), (Plugin)this);
-		 pm.registerEvents((Listener)new PlayerHit(), (Plugin)this);
+		final PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents((Listener) new PlayerJoin(), (Plugin) this);
+		pm.registerEvents((Listener) new Soup(), (Plugin) this);
+		pm.registerEvents((Listener) new PlayerDeath(), (Plugin) this);
+		pm.registerEvents((Listener) new PlayerHit(), (Plugin) this);
+	}
 
+	public void checkTask() {
+		FightingSchedule fightingSchedule = new FightingSchedule(); 
+		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+			public void run() {
+				fightingSchedule.run(); 
+			}
+		}, 20L * 30, 20L * 30);
 	}
 }

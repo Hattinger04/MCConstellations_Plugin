@@ -28,7 +28,7 @@ public class Constellations {
 		 HashMap<EConstellations, ArrayList<Player>> constellation = new HashMap<EConstellations, ArrayList<Player>>();
 		 for(EConstellations color : EConstellations.values()) {
 			 constellation.put(color, new ArrayList<Player>()); 
-			 constellationsStats.put(color, 0); 
+			 constellationsStats.put(color, 100); 
 		 }
 		 // MySQL DB Zugriff => laden der Daten
 		 

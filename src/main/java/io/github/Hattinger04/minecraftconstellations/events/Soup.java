@@ -18,7 +18,6 @@ public class Soup implements Listener {
 	@EventHandler
 	public void onSoupEaten(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-
 		if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 			return;
 

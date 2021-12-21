@@ -17,7 +17,7 @@ public class PlayerHit implements Listener {
 		Player whoWasHit = (Player) event.getEntity(); 
 		Player whoHit = (Player) event.getDamager();
 		if(Constellations.getColorFromPlayer(whoWasHit) == Constellations.getColorFromPlayer(whoHit)) {
-			event.setCancelled(true);
+			event.setDamage(0);
 		}
 	}
 }
