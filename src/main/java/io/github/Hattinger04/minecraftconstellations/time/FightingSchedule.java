@@ -15,6 +15,8 @@ import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import net.md_5.bungee.api.ChatColor;
+
 public class FightingSchedule {
 
 	private String start = "19:00";
@@ -44,12 +46,12 @@ public class FightingSchedule {
 
 		if(x.after(startTime.getTime()) && x.before(startTime.getTime()) && !isFightingEnabled) {
 			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-				player.sendMessage("Fighting is now enabled!");
+				player.sendMessage(ChatColor.GREEN + "Fighting is now enabled!" + ChatColor.RESET);
 			}
 			isFightingEnabled = !isFightingEnabled; 
 		} else if(x.after(startTime.getTime()) && isFightingEnabled) {
 			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-				player.sendMessage("Fighting is now disabled!");
+				player.sendMessage(ChatColor.GREEN + "Fighting is now disabled!" + ChatColor.RESET);
 			}
 			isFightingEnabled = !isFightingEnabled;
 		}
