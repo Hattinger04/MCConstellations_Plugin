@@ -123,24 +123,7 @@ public class Constellations {
 	 */
 	public static boolean setPlayerColor(Player player) {
 		EConstellations color = getColorFromPlayer(player); 
-		ChatColor chatColor; 
-		switch(color) {
-		case Red: 
-			chatColor = ChatColor.RED; 
-			break; 
-		case Blue: 
-			chatColor = ChatColor.BLUE; 
-			break; 
-		case Yellow: 
-			chatColor = ChatColor.YELLOW; 
-			break; 
-		case Green: 
-			chatColor = ChatColor.GREEN; 
-			break;
-		default:
-			chatColor = ChatColor.BLACK; 
-			break; 
-		}
+		ChatColor chatColor = getChatColorFromColor(color); 
 		player.setDisplayName(chatColor + player.getName() + ChatColor.RESET);
 		
 		return true; 
@@ -179,5 +162,27 @@ public class Constellations {
 	public static boolean resetStatsFromColor(EConstellations color) {
 		constellationsStats.replace(color, 0); 
 		return true; 
+	}
+	
+	public static ChatColor getChatColorFromColor(EConstellations color) {
+		ChatColor chatColor; 
+		switch(color) {
+		case Red: 
+			chatColor = ChatColor.RED; 
+			break; 
+		case Blue: 
+			chatColor = ChatColor.BLUE; 
+			break; 
+		case Yellow: 
+			chatColor = ChatColor.YELLOW; 
+			break; 
+		case Green: 
+			chatColor = ChatColor.GREEN; 
+			break;
+		default:
+			chatColor = ChatColor.BLACK; 
+			break; 
+		}
+		return chatColor; 
 	}
 }

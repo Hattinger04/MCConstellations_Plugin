@@ -66,6 +66,7 @@ public final class MinecraftConstellations extends JavaPlugin {
 		pm.registerEvents((Listener) new PlayerHit(), (Plugin) this);
 	}
 
+	// Does this work???????
 	public void checkTask() {
 		FightingSchedule fightingSchedule = new FightingSchedule(); 
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
