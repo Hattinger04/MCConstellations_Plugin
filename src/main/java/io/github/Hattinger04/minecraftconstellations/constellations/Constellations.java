@@ -185,4 +185,8 @@ public class Constellations {
 		}
 		return chatColor; 
 	}
+	
+	public static ChatColor getChatColorFromPlayer(Player player) {
+		return getChatColorFromColor(getColorFromPlayer(player)); 
+	}
 }

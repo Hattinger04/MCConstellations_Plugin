@@ -15,6 +15,7 @@ import java.util.Date;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import io.github.Hattinger04.minecraftconstellations.MessageTemplate;
 import net.md_5.bungee.api.ChatColor;
 
 public class FightingSchedule {
@@ -43,15 +44,14 @@ public class FightingSchedule {
 	 */
 	public void run() {
 		Date x = Calendar.getInstance().getTime();
-
 		if(x.after(startTime.getTime()) && x.before(startTime.getTime()) && !isFightingEnabled) {
 			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-				player.sendMessage(ChatColor.GREEN + "Fighting is now enabled!" + ChatColor.RESET);
+				MessageTemplate.sendMessageToPlayer("Fighting is now enabled!", player, ChatColor.GREEN);
 			}
 			isFightingEnabled = !isFightingEnabled; 
 		} else if(x.after(startTime.getTime()) && isFightingEnabled) {
 			for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-				player.sendMessage(ChatColor.GREEN + "Fighting is now disabled!" + ChatColor.RESET);
+				MessageTemplate.sendMessageToPlayer("Fighting is now disabled!", player, ChatColor.GREEN);
 			}
 			isFightingEnabled = !isFightingEnabled;
 		}

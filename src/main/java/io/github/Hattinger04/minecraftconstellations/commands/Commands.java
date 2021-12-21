@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import io.github.Hattinger04.minecraftconstellations.MessageTemplate;
 import io.github.Hattinger04.minecraftconstellations.MinecraftConstellations;
 import io.github.Hattinger04.minecraftconstellations.constellations.Constellations;
 import io.github.Hattinger04.minecraftconstellations.constellations.EConstellations;
@@ -26,7 +27,7 @@ public class Commands implements CommandExecutor {
 		if (sender instanceof Player) {
 			final Player player = (Player) sender;
 			if (cmd.getName().equalsIgnoreCase("help")) {
-				player.sendMessage("Du brauchst Hife?");
+				MessageTemplate.sendMessageToPlayer("Du brauchst Hife?", player);
 			} else if (cmd.getName().equalsIgnoreCase("website")) {
 				TextComponent message = new TextComponent(
 						TextComponent.fromLegacyText("Klicken um auf die Website weitergeleitet zu werden!"));
@@ -35,12 +36,12 @@ public class Commands implements CommandExecutor {
 			} else if (cmd.getName().equalsIgnoreCase("constellation")) {
 				// TODO: Permissions müssen noch eingeführt werden!
 				if (args.length == 0) {
-					player.sendMessage("Deine Constellation: " + Constellations.getColorFromPlayer(player).toString());
+					MessageTemplate.sendMessageToPlayer("Deine Constellation: ", player, Constellations.getChatColorFromPlayer(player));
 				} else if (args.length == 1) {
 					EConstellations color = Constellations
 							.addPlayerToConstellation(Constellations.getColorFromString(args[0]), player);
 					if (color == EConstellations.Nothing) {
-						player.sendMessage(ChatColor.RED + "Deine Zuweisung ist fehlgschlagen!" + ChatColor.RESET);
+						MessageTemplate.sendMessageToPlayer("Deine Zuweisung ist fehlgschlagen!", player, ChatColor.RED);
 					} else {
 						player.sendMessage("Du bist nun in der Constellation " + color + ".");
 					}
@@ -48,10 +49,10 @@ public class Commands implements CommandExecutor {
 					try {
 						EConstellations color = Constellations.addPlayerToConstellation(
 								Constellations.getColorFromString(args[0]), Bukkit.getPlayer(args[1]));
-						player.sendMessage("Du hast Spieler " + args[1] + "in die Constellation " + color + "gesetzt.");
+						MessageTemplate.sendMessageToPlayer("Du hast Spieler " + args[1] + "in die Constellation " + color + "gesetzt.", player);
 						Bukkit.getPlayer(args[1]).sendMessage("Du bist nun in der Constellation " + color + ".");
 					} catch (NullPointerException ex) {
-						player.sendMessage(ChatColor.RED + "Deine Zuweisung ist fehlgschlagen!" + ChatColor.RESET);
+						MessageTemplate.sendMessageToPlayer("Deine Zuweisung ist fehlgschlagen!", player, ChatColor.RED);
 					}
 				}
 			}
