@@ -23,7 +23,7 @@ public class Soup implements Listener {
 			return;
 
 		if (event.getItem().getType() == Material.MUSHROOM_STEW) {
-			player.setHealth(Math.min(player.getHealth() + 8, 20));
+			player.setHealth(Math.min(player.getHealth() + 7, 20));
 			player.getInventory().setItemInMainHand(new ItemStack(Material.BOWL));
 		}
 	}

@@ -5,31 +5,37 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Objects;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class Constellations {
-
-	/*
-	 * Nothing tested!
-	 */
 	
 	private static HashMap<EConstellations, ArrayList<Player>> constellations; 
+	private static HashMap<EConstellations, Integer> constellationsStats; 
 	
+	/**
+	 * To initialize / load the constellations
+	 * => has to be called first when using constellations
+	 */
 	public static void initializeConstellations() {
 		constellations = loadConstellations(); 
 	}
 	
-	public static HashMap<EConstellations, ArrayList<Player>> loadConstellations() {
+	
+	private static HashMap<EConstellations, ArrayList<Player>> loadConstellations() {
 		 HashMap<EConstellations, ArrayList<Player>> constellation = new HashMap<EConstellations, ArrayList<Player>>();
 		 for(EConstellations color : EConstellations.values()) {
 			 constellation.put(color, new ArrayList<Player>()); 
+			 constellationsStats.put(color, 0); 
 		 }
-		 // MySQL DB Zugriff => erstellen der HashMap
+		 // MySQL DB Zugriff => laden der Daten
 		 
 		 // Changing players name color: 
-
+		 for(Player player : Bukkit.getServer().getOnlinePlayers()) {
+			 setPlayerColor(player); 
+		 }
 		 return constellation; 
 	}
 	
@@ -109,6 +115,7 @@ public class Constellations {
 	}
 	
 	/**
+	 * Sets players color name tag.
 	 * Returns boolean => exceptions are missing!
 	 * 
 	 * @param player
@@ -135,6 +142,7 @@ public class Constellations {
 			break; 
 		}
 		player.setDisplayName(chatColor + player.getName() + ChatColor.RESET);
+		
 		return true; 
 	}
 	
@@ -144,5 +152,33 @@ public class Constellations {
 		} catch(IllegalArgumentException ex) {
 			return EConstellations.Nothing; 
 		}
+	}
+	
+	public static int getStatsFromColor(EConstellations color) {
+		return constellationsStats.get(color); 
+	}
+	
+	/**
+	 * Returns boolean => exceptions are missing!
+	 * 
+	 * @param color
+	 * @param stats
+	 * @return
+	 */
+	public static boolean addStatsToColor(EConstellations color, int stats) {
+		constellationsStats.replace(color, constellationsStats.get(color) + stats); 
+		return true; 
+	}
+	
+	/**
+	 * Returns boolean => exceptions are missing!
+
+	 * @param color
+	 * @return
+	 * @throws Exception
+	 */
+	public static boolean resetStatsFromColor(EConstellations color) throws Exception {
+		constellationsStats.replace(color, 0); 
+		return true; 
 	}
 }

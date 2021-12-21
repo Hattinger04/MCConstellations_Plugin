@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.Hattinger04.minecraftconstellations.commands.Commands;
 import io.github.Hattinger04.minecraftconstellations.constellations.Constellations;
 import io.github.Hattinger04.minecraftconstellations.events.PlayerJoin;
+import io.github.Hattinger04.minecraftconstellations.events.Soup;
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQL;
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQLFIle;
 
@@ -53,5 +54,6 @@ public final class MinecraftConstellations extends JavaPlugin{
 	private void registerEvents() {
 		 final PluginManager pm = Bukkit.getPluginManager();
 		 pm.registerEvents((Listener)new PlayerJoin(), (Plugin)this);
+		 pm.registerEvents((Listener)new Soup(), (Plugin)this);
 	}
 }
