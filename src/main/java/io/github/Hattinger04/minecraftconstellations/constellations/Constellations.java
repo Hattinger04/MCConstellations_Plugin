@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import net.md_5.bungee.api.ChatColor;
@@ -25,6 +24,7 @@ public class Constellations {
 	 */
 	public static void initializeConstellations() {
 		constellations = loadConstellations(); 
+		constellationsStats = loadConstellationStats(); 
 	}
 	
 	
@@ -32,15 +32,19 @@ public class Constellations {
 		 HashMap<EConstellations, ArrayList<Player>> constellation = new HashMap<EConstellations, ArrayList<Player>>();
 		 for(EConstellations color : EConstellations.values()) {
 			 constellation.put(color, new ArrayList<Player>()); 
-			 constellationsStats.put(color, 100); 
+		 }
+		 // MySQL DB Zugriff => laden der Daten (mit addPlayertoConstellation)
+		 
+		 return constellation; 
+	}
+	private static HashMap<EConstellations, Integer> loadConstellationStats() {
+		 HashMap<EConstellations, Integer> constellationStats = new HashMap<EConstellations, Integer>();
+		 for(EConstellations color : EConstellations.values()) {
+			 constellationStats.put(color, 100); 
 		 }
 		 // MySQL DB Zugriff => laden der Daten
 		 
-		 // Changing players name color: 
-		 for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			 setPlayerColor(player); 
-		 }
-		 return constellation; 
+		 return constellationStats; 
 	}
 	
 	public static boolean isInConstellation(Player player) {
@@ -64,7 +68,6 @@ public class Constellations {
 		playerList.add(player); 
 		constellations.remove(color); 
 		constellations.put(color, playerList); 
-		setPlayerColor(player); 
 		
 		// Bissale a pfusch denk i aber so funkts
 		for(EConstellations cons : EConstellations.values()) {
@@ -74,13 +77,8 @@ public class Constellations {
 				}
 			}
 		}
+		setPlayerColor(player); 
 
-		for (Entry<EConstellations, ArrayList<Player>> entry : constellations.entrySet()) {
-			System.out.println("Color: " + entry.getKey().toString());
-			for(Player p : entry.getValue()) {
-	    		System.out.println("\tPlayer: " + p.getDisplayName());
-	    	}		
-		}
 		return color; 
 	}
 	
@@ -126,10 +124,10 @@ public class Constellations {
 	 * @return
 	 */
 	public static boolean setPlayerColor(Player player) {
-		EConstellations color = getColorFromPlayer(player); 
-		ChatColor chatColor = getChatColorFromColor(color); 
-		player.setDisplayName(chatColor + player.getName() + ChatColor.RESET);
-		
+		ChatColor chatColor = getChatColorFromColor(getColorFromPlayer(player)); 
+		player.setPlayerListName(chatColor + player.getName());
+		player.setDisplayName(chatColor + player.getName());
+		System.out.println("Spielerfarbe geändert!");
 		return true; 
 	}
 	
@@ -142,7 +140,7 @@ public class Constellations {
 	}
 	
 	public static int getStatsFromColor(EConstellations color) {
-		return constellationsStats.get(color); 
+		return constellationsStats.get(color);
 	}
 	
 	/**
@@ -164,12 +162,12 @@ public class Constellations {
 	 * @return
 	 */
 	public static boolean resetStatsFromColor(EConstellations color) {
-		constellationsStats.replace(color, 0); 
+		constellationsStats.replace(color, 0);
 		return true; 
 	}
 	
 	public static ChatColor getChatColorFromColor(EConstellations color) {
-		ChatColor chatColor; 
+		ChatColor chatColor;
 		switch(color) {
 		case Red: 
 			chatColor = ChatColor.RED; 
@@ -184,7 +182,7 @@ public class Constellations {
 			chatColor = ChatColor.GREEN; 
 			break;
 		default:
-			chatColor = ChatColor.BLACK; 
+			chatColor = ChatColor.RESET; 
 			break; 
 		}
 		return chatColor; 

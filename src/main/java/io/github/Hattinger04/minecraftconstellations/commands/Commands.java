@@ -38,15 +38,16 @@ public class Commands implements CommandExecutor {
 				if (args.length == 0) {
 					MessageTemplate.sendMessageToPlayer("Deine Constellation: ", player, Constellations.getChatColorFromPlayer(player));
 				} else if (args.length == 1) {
-					EConstellations color = Constellations
-							.addPlayerToConstellation(Constellations.getColorFromString(args[0]), player);
+					EConstellations color = Constellations.getColorFromString(args[0]); 
 					if (color == EConstellations.Nothing) {
 						MessageTemplate.sendMessageToPlayer("Deine Zuweisung ist fehlgschlagen!", player, ChatColor.RED);
 					} else {
+						Constellations.addPlayerToConstellation(color, player);
 						player.sendMessage("Du bist nun in der Constellation " + color + ".");
 					}
 				} else if (args.length == 2) {
-					try {
+					try {						
+						System.out.println(args[1]);
 						EConstellations color = Constellations.addPlayerToConstellation(
 								Constellations.getColorFromString(args[0]), Bukkit.getPlayer(args[1]));
 						MessageTemplate.sendMessageToPlayer("Du hast Spieler " + args[1] + "in die Constellation " + color + "gesetzt.", player);

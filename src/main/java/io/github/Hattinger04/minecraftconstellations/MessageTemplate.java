@@ -14,7 +14,7 @@ public class MessageTemplate {
 	}
 	
 	public static void sendMessageToPlayer(String message, Player player) {
-		sendMessageToPlayer(message, player, ChatColor.BLACK);
+		sendMessageToPlayer(message, player, ChatColor.RESET);
 	}
 	
 	public static void sendMessageToConstellation(String message, EConstellations constellation) {
@@ -30,6 +30,6 @@ public class MessageTemplate {
 	}
 	
 	public static void sendMessageToAllPlayer(String message) {
-		sendMessageToAllPlayer(message, ChatColor.BLACK);
+		sendMessageToAllPlayer(message, ChatColor.RESET);
 	}
 }

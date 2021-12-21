@@ -3,8 +3,6 @@
  */
 package io.github.Hattinger04.minecraftconstellations;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -25,7 +23,6 @@ public final class MinecraftConstellations extends JavaPlugin {
 
 	public static MySQL mysql;
 	public static MinecraftConstellations plugin;
-	private static List<FightingSchedule> tasks = new ArrayList<>();
 
 	public static MinecraftConstellations getplugin() {
 		return MinecraftConstellations.plugin;
@@ -45,7 +42,8 @@ public final class MinecraftConstellations extends JavaPlugin {
 		this.registerEvents();
 		getLogger().info("Events are successfully implemented!");
 		Constellations.initializeConstellations();
-		getLogger().info("Constelaltions are successfully implemented!");
+		getLogger().info("Constellaltions are successfully implemented!");
+		checkTask();
 
 	}
 
@@ -64,7 +62,7 @@ public final class MinecraftConstellations extends JavaPlugin {
 	private void registerEvents() {
 		final PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents((Listener) new PlayerJoin(), (Plugin) this);
-		pm.registerEvents((Listener) new Soup(), (Plugin) this);
+		//pm.registerEvents((Listener) new Soup(), (Plugin) this);
 		pm.registerEvents((Listener) new PlayerDeath(), (Plugin) this);
 		pm.registerEvents((Listener) new PlayerHit(), (Plugin) this);
 	}
@@ -75,6 +73,7 @@ public final class MinecraftConstellations extends JavaPlugin {
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				fightingSchedule.run(); 
+				getLogger().info("Updating...");
 			}
 		}, 20L * 30, 20L * 30);
 	}
