@@ -172,12 +172,11 @@ public class Constellations {
 	
 	/**
 	 * Returns boolean => exceptions are missing!
-
+	 * 
 	 * @param color
 	 * @return
-	 * @throws Exception
 	 */
-	public static boolean resetStatsFromColor(EConstellations color) throws Exception {
+	public static boolean resetStatsFromColor(EConstellations color) {
 		constellationsStats.replace(color, 0); 
 		return true; 
 	}
