@@ -24,7 +24,7 @@ public class MySQLFIle {
 
 	static {
 		MySQLFIle.Host = "localhost";
-		MySQLFIle.Database = "skywars";
+		MySQLFIle.Database = "constellations";
 		MySQLFIle.User = "root";
 		MySQLFIle.Passwort = "";
 		MySQLFIle.file = new File("plugins/SkyWars", "MySQL.yml");
@@ -34,7 +34,7 @@ public class MySQLFIle {
 	public static void setDefaultMySQL() {
 		MySQLFIle.sql.addDefault("MySQL", (Object) true);
 		MySQLFIle.sql.addDefault("Host", (String) "localhost");
-		MySQLFIle.sql.addDefault("Database", (String) "skywars");
+		MySQLFIle.sql.addDefault("Database", (String) "constellations");
 		MySQLFIle.sql.addDefault("User", (String) "root");
 		MySQLFIle.sql.addDefault("Passwort", (String) "");
 		MySQLFIle.sql.options().copyDefaults(true);
@@ -54,16 +54,12 @@ public class MySQLFIle {
 
 	public static void ConnectMySQL() {
 		(MinecraftConstellations.mysql = new MySQL(MySQLFIle.Host, MySQLFIle.Database, MySQLFIle.User, MySQLFIle.Passwort)).update(
-				"CREATE TABLE IF NOT EXISTS SkyWarsStats(UUID varchar(64), KILLS int, DEATHS int, WIN int, PLAY int, COINS int);");
-		MinecraftConstellations.mysql.update(
-				"CREATE TABLE IF NOT EXISTS SkyWarsKits(UUID varchar(64), K1 int, K2 int, K3 int, K4 int,K5 int,K6 int,K7 int,K8 int,K9 int,K10 int,K11 int,K12 int,K13 int,K14 int,K15 int,K16 int,K17 int,K18 int,K19 int,K20 int,K21 int,K22 int,K23 int,K24 int,K25 int,K26 int,K27 int,LAST int);");
+				"CREATE TABLE IF NOT EXISTS ConstellationStats(UUID varchar(64), KILLS int, DEATHS int);");
 		Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) MinecraftConstellations.getplugin(), (Runnable) new Runnable() {
 			@Override
 			public void run() {
 				MinecraftConstellations.mysql.update(
-						"CREATE TABLE IF NOT EXISTS SkyWarsStats(UUID varchar(64), KILLS int, DEATHS int, WIN int, PLAY int, COINS int);");
-				MinecraftConstellations.mysql.update(
-						"CREATE TABLE IF NOT EXISTS SkyWarsKits(UUID varchar(64), K1 int, K2 int, K3 int, K4 int,K5 int,K6 int,K7 int,K8 int,K9 int,K10 int,K11 int,K12 int,K13 int,K14 int,K15 int,K16 int,K17 int,K18 int,K19 int,K20 int,K21 int,K22 int,K23 int,K24 int,K25 int,K26 int,K27 int,LAST int);");
+						"CREATE TABLE IF NOT EXISTS ConstellationStats(UUID varchar(64), KILLS int, DEATHS int);");
 			}
 		}, 0L, 216000L);
 	}

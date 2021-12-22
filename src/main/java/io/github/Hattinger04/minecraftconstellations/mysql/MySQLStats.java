@@ -1,7 +1,8 @@
-// 
-// Decompiled by Procyon v0.5.36
-// 
-
+/**
+ * @author Simon Greiderer
+ * 
+ * TODO: Ranking Abfrage noch kopieren
+ */
 package io.github.Hattinger04.minecraftconstellations.mysql;
 
 import java.sql.SQLException;
@@ -20,12 +21,11 @@ public class MySQLStats
     static {
         MySQLStats.rang = new HashMap<Integer, String>();
     }
-    
-    
+        
     public static boolean playerExists(final String uuid) {
         if (MySQLFIle.sql.getBoolean("MySQL")) {
             try {
-                final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM SkyWarsStats WHERE UUID= '" + uuid + "'");
+                final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM ConstellationStats WHERE UUID= '" + uuid + "'");
                 return rs.next() && rs.getString("UUID") != null;
             }
             catch (SQLException e) {
@@ -37,7 +37,7 @@ public class MySQLStats
     
     public static void createPlayer(final String uuid) {
         if (MySQLFIle.sql.getBoolean("MySQL") && !playerExists(uuid)) {
-        	MinecraftConstellations.mysql.update("INSERT INTO SkyWarsStats(UUID, KILLS, DEATHS, WIN, PLAY, COINS) VALUES ('" + uuid + "', '0', '0', '0', '0', '0');");
+        	MinecraftConstellations.mysql.update("INSERT INTO ConstellationStats(UUID, KILLS, DEATHS) VALUES ('" + uuid + "', '0', '0', '0');");
         }
     }
     
@@ -46,7 +46,7 @@ public class MySQLStats
         if (MySQLFIle.sql.getBoolean("MySQL")) {
             if (playerExists(name)) {
                 try {
-                    final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM SkyWarsStats WHERE UUID= '" + name + "'");
+                    final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM ConstellationStats WHERE UUID= '" + name + "'");
                     if (!rs.next() || Integer.valueOf(rs.getInt("KILLS")) == null) {}
                     i = rs.getInt("KILLS");
                 }
@@ -65,7 +65,7 @@ public class MySQLStats
     public static void setKills(final String name, final Integer kills) {
         if (MySQLFIle.sql.getBoolean("MySQL")) {
             if (playerExists(name)) {
-            	MinecraftConstellations.mysql.update("UPDATE SkyWarsStats SET KILLS= '" + kills + "' WHERE UUID= '" + name + "';");
+            	MinecraftConstellations.mysql.update("UPDATE ConstellationStats SET KILLS= '" + kills + "' WHERE UUID= '" + name + "';");
             }
             else {
                 createPlayer(name);
@@ -91,7 +91,7 @@ public class MySQLStats
         if (MySQLFIle.sql.getBoolean("MySQL")) {
             if (playerExists(name)) {
                 try {
-                    final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM SkyWarsStats WHERE UUID= '" + name + "'");
+                    final ResultSet rs = MinecraftConstellations.mysql.query("SELECT * FROM ConstellationStats WHERE UUID= '" + name + "'");
                     if (!rs.next() || Integer.valueOf(rs.getInt("DEATHS")) == null) {}
                     i = rs.getInt("DEATHS");
                 }
@@ -110,7 +110,7 @@ public class MySQLStats
     public static void setDeaths(final String name, final Integer deaths) {
         if (MySQLFIle.sql.getBoolean("MySQL")) {
             if (playerExists(name)) {
-                MinecraftConstellations.mysql.update("UPDATE SkyWarsStats SET DEATHS= '" + deaths + "' WHERE UUID= '" + name + "';");
+                MinecraftConstellations.mysql.update("UPDATE ConstellationStats SET DEATHS= '" + deaths + "' WHERE UUID= '" + name + "';");
             }
             else {
                 createPlayer(name);
