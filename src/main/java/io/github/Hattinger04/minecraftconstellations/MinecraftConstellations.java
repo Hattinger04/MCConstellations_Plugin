@@ -72,6 +72,7 @@ public final class MinecraftConstellations extends JavaPlugin {
 	 */
 	public void checkTask() {
 		FightingSchedule fightingSchedule = new FightingSchedule(); 
+		fightingSchedule.run();
 		getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
 			public void run() {
 				fightingSchedule.run(); 

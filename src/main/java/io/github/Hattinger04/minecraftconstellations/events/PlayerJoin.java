@@ -9,7 +9,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import io.github.Hattinger04.minecraftconstellations.mysql.MySQLStats;
-
+import io.github.Hattinger04.minecraftconstellations.time.FightingSchedule;
+import io.github.Hattinger04.minecraftconstellations.MessageTemplate;
 import io.github.Hattinger04.minecraftconstellations.constellations.Constellations;
 import io.github.Hattinger04.minecraftconstellations.constellations.EConstellations;
 import net.md_5.bungee.api.ChatColor;
@@ -21,10 +22,17 @@ public class PlayerJoin implements Listener{
 		if(Constellations.isInConstellation(event.getPlayer())) {
 			Constellations.addPlayerToConstellation(MySQLStats.getConstellation(), event.getPlayer()); 
 			Constellations.setPlayerColor(event.getPlayer()); 
-			event.getPlayer().sendMessage(ChatColor.GREEN + "Du bist in einer Constellation, gut gemacht." + ChatColor.RESET);
+			MessageTemplate.sendMessageToPlayer("Du bist in einer Constellation, gut gemacht.", event.getPlayer(), ChatColor.GREEN);
 		} else {
 			Constellations.addPlayerToConstellation(EConstellations.Nothing, event.getPlayer()); 
-			event.getPlayer().sendMessage(ChatColor.RED + "Du bist in noch keiner Constellation!!" + ChatColor.RESET);
+			MessageTemplate.sendMessageToPlayer("Du bist in noch keiner Constellation!!", event.getPlayer(), ChatColor.RED);
+
 		}
+		if(FightingSchedule.isFightingEnabled()) {
+			MessageTemplate.sendMessageToPlayer("PvP ist zurzeit enabled", event.getPlayer());
+		} else if(!FightingSchedule.isFightingEnabled()) {
+			MessageTemplate.sendMessageToPlayer("PvP ist zurzeit disabled", event.getPlayer());
+		}
+		
 	}
 }

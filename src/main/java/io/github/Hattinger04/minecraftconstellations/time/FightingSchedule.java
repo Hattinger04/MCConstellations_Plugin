@@ -19,8 +19,8 @@ public class FightingSchedule {
 
 	private int hour, minute; 
 	Date date;
-	Date dateCompareOne = parseDate("19:00");
-	Date dateCompareTwo = parseDate("22:00");
+	Date dateCompareOne = parseDate("13:00");
+	Date dateCompareTwo = parseDate("16:05");
 
 	private static boolean isFightingEnabled = false;
 
@@ -49,14 +49,18 @@ public class FightingSchedule {
 	 * Vielleicht noch eine abfrage ob man sich im fight befindet
 	 */
 	public void run() {
-		// Neuer Versuch, vll noch if before - after tauschen
 		setFightingTime();
 		if (dateCompareOne.before(date) && dateCompareTwo.after(date) && !isFightingEnabled) {
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 				MessageTemplate.sendMessageToPlayer("Fighting is now enabled!", player, ChatColor.GREEN);
 			}
 			isFightingEnabled = !isFightingEnabled;
-		} else if (dateCompareOne.before(date) && isFightingEnabled) {
+		} else if (dateCompareOne.after(date) && dateCompareTwo.after(date) && isFightingEnabled) {
+			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+				MessageTemplate.sendMessageToPlayer("Fighting is now disabled!", player, ChatColor.GREEN);
+			}
+			isFightingEnabled = !isFightingEnabled;
+		} else if (dateCompareOne.before(date) && dateCompareTwo.before(date) && isFightingEnabled) {
 			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 				MessageTemplate.sendMessageToPlayer("Fighting is now disabled!", player, ChatColor.GREEN);
 			}
