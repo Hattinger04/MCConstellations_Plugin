@@ -16,11 +16,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class Commands implements CommandExecutor {
 
-	private final MinecraftConstellations plugin;
 	private final String url = "https://www.google.com";
 
 	public Commands(MinecraftConstellations plugin) {
-		this.plugin = plugin; // Store the plugin in situations where you need it.
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
