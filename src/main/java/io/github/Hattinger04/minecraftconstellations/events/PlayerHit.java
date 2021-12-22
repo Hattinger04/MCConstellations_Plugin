@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import io.github.Hattinger04.minecraftconstellations.MessageTemplate;
-import io.github.Hattinger04.minecraftconstellations.MinecraftConstellations;
 import io.github.Hattinger04.minecraftconstellations.constellations.Constellations;
 import io.github.Hattinger04.minecraftconstellations.time.FightingSchedule;
 
